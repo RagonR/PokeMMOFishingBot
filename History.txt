@@ -1,0 +1,27 @@
+Horsea: 33 Magikarp: 1 Krabby: 8
+
+Horsea: 8 Magikarp: 4 Krabby: 7
+
+Horsea: 0 Magikarp: 2 Krabby: 0
+
+Horsea: 7 Magikarp: -3 Krabby: -5
+
+Horsea: 10 Magikarp: 5 Krabby: 7
+
+Horsea: 5 Magikarp: 5 Krabby: 3
+
+Horsea: 0 Magikarp: 2 Krabby: 0
+
+Horsea: 0 Magikarp: 1 Krabby: 0
+
+Horsea: 0 Magikarp: 0 Krabby: 0
+
+Horsea: 0 Magikarp: 0 Krabby: 0
+
+Horsea: 0 Magikarp: 0 Krabby: 0
+
+Horsea: 0 Magikarp: 0 Krabby: 0
+
+Horsea: 0 Magikarp: 0 Krabby: 0
+
+Horsea: 0 Magikarp: 0 Krabby: 0
