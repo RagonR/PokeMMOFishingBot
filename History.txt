@@ -53,3 +53,17 @@ Horsea: 0 Magikarp: 0 Krabby: 0
 Horsea: 1 Magikarp: 0 Krabby: 0
 
 Horsea: 0 Magikarp: 0 Krabby: 1
+
+Horsea: 0 Magikarp: 0 Krabby: 0
+
+Horsea: 0 Magikarp: 1 Krabby: 0
+
+Horsea: 0 Magikarp: 0 Krabby: 1
+
+Horsea: 0 Magikarp: 0 Krabby: 1
+
+Horsea: 0 Magikarp: 1 Krabby: 0
+
+Horsea: 0 Magikarp: 0 Krabby: 2
+
+Horsea: 1 Magikarp: 0 Krabby: 1

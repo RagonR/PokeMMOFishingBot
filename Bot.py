@@ -340,7 +340,7 @@ def keyboardCodes(button):
 def Send(button):
     button_code = keyboardCodes(button)
     if button_code is not False:
-        button_hold_time = random.randint(598, 1535) / 1000
+        button_hold_time = random.randint(198, 835) / 1000
         PressKey(button_code)
         time.sleep(button_hold_time)
         ReleaseKey(button_code)
@@ -352,14 +352,25 @@ def Send(button):
 # Login to game
 def logintogame():
     pyautogui.click(Cordinates.FullScreen)
+
+    wait = random.randint(898, 1335) / 1000
+    print(wait)
+    time.sleep(wait)
+    wait = random.randint(898, 1335) / 1000
+    print(wait)
+    time.sleep(wait)
     Send('Enter')
-    time.sleep(1.5)
+    wait = random.randint(898, 1335) / 1000
+    print(wait)
+    time.sleep(wait)
     Send('Enter')
-    time.sleep(1.5)
+    wait = random.randint(898, 1335) / 1000
+    print(wait)
+    time.sleep(wait)
     Send('Enter')
-    time.sleep(1)
-    Send('Enter')
-    time.sleep(3)
+    wait = random.randint(898, 1335) / 1000
+    print(wait)
+    time.sleep(wait)
 
 
 # Open Setting
@@ -674,24 +685,31 @@ def closepop():
     time.sleep(0.01)
     Send('esc')
     p1 = Cordinates(935, 610)
-    if checking(p1) > 8000:
-        Send('enter')
+    # if checking(p1) > 8000:
+    #     Send('enter')
 
 
 # GoHealing; 0x11 = w button
 def ToHeal():
+    print("Going to pokecenter")
     p1 = Cordinates(945, 340)
-    while searchcor(p1) < 2700:
-        PressKey('0x11')
-    ReleaseKey(('0x11'))
+    print(searchcor(p1))
+    button = keyboardCodes("w")
+    while searchcor(p1) < 2650:
+        PressKey(button)
+    ReleaseKey(button)
     Heal()
 
 
 # Healing
 def Heal():
+    print("Going to nurse")
     ErrCheck = 0
-    p1 = Cordinates(820, 270)
+    p1 = Cordinates(558, 140)
     Send('z')
+    time.sleep(0.2)
+    Send('z')
+    print(searchcor(p1))
     while True:
         time.sleep(0.15)
         if searchcor(p1) > 12000:
@@ -707,16 +725,17 @@ def Heal():
 
 # BackHealing 0x1F = s button
 def FromHeal():
+    print ("Going back to fishing")
     p1 = Cordinates(945, 550)
     while True:
-        PressKey('0x1F')
+        PressKey(0x1F)
         if searchcor(p1) < 1020:
-            ReleaseKey('0x1F')
+            ReleaseKey(0x1F)
             time.sleep(1)
             break
-    PressKey('0x1F')
+    PressKey(0x1F)
     time.sleep(1)
-    ReleaseKey('0x1F')
+    ReleaseKey(0x1F)
 
 
 # Preset
@@ -745,7 +764,6 @@ def savesetting():
     save_file.write(" ")
     save_file.write(str(Pokemones.catchKra))
     save_file.close()
-
 
 def loadsetting():
     with open("save.txt", "r") as load:
@@ -825,4 +843,6 @@ def main():
     if (Pokemones.guiClosed == 1):
         Info.start()
 
+
 main()
+
