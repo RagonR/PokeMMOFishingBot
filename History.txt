@@ -67,3 +67,49 @@ Horsea: 0 Magikarp: 1 Krabby: 0
 Horsea: 0 Magikarp: 0 Krabby: 2
 
 Horsea: 1 Magikarp: 0 Krabby: 1
+
+Horsea: 1 Magikarp: 0 Krabby: 0
+
+Horsea: 0 Magikarp: 0 Krabby: 0
+
+Horsea: 0 Magikarp: 0 Krabby: 0
+
+Horsea: 0 Magikarp: 10 Krabby: 0
+
+Horsea: 0 Magikarp: 1 Krabby: 0
+
+Horsea: 2 Magikarp: 0 Krabby: 5
+
+Horsea: 2 Magikarp: 0 Krabby: 0
+
+Horsea: 1 Magikarp: 0 Krabby: 1
+
+Horsea: 1 Magikarp: 1 Krabby: 0
+
+Horsea: 0 Magikarp: 0 Krabby: 1
+
+Horsea: 0 Magikarp: 0 Krabby: 1
+
+Horsea: 0 Magikarp: 1 Krabby: 0
+
+Horsea: 1 Magikarp: 0 Krabby: 0
+
+Horsea: 2 Magikarp: 0 Krabby: 0
+
+Horsea: 0 Magikarp: 0 Krabby: 1
+
+Horsea: 0 Magikarp: 0 Krabby: 0
+
+Horsea: 0 Magikarp: 0 Krabby: 0
+
+Horsea: 1 Magikarp: 1 Krabby: 0
+
+Horsea: 0 Magikarp: 0 Krabby: 2
+
+Horsea: 0 Magikarp: 1 Krabby: 2
+
+Horsea: 1 Magikarp: 1 Krabby: 4
+
+Horsea: 1 Magikarp: 2 Krabby: 37
+
+Horsea: 5 Magikarp: 3 Krabby: 5

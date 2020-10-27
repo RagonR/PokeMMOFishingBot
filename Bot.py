@@ -2,30 +2,32 @@ import ctypes
 import time
 from threading import *
 from tkinter import *
-from tkinter import messagebox, font
+from tkinter import messagebox, font, Label
 import random
 
 import PIL
 import pyautogui
 from PIL import ImageGrab, ImageOps, ImageTk, Image
 from numpy import array, os
+
 SendInput = ctypes.windll.user32.SendInput
 random.seed(time.time())
 
-class Cordinates():
+
+class Coordinates():
     def __init__(self, X, Y):
         self.X = X
         self.Y = Y
 
     # LoginToGame
-    FullScreen = (1856, 41)
-    LoginBtn = (1062, 584)
-    LoginBtn1 = (1044, 479)
+    fullscreen = (1856, 41)
+    login_btn = (1062, 584)
+    login_btn1 = (1044, 479)
     # Setup
-    SettingX = (1060)
-    SettingY = (485)
-    GameplX = (705)
-    GameplY = (455)
+    setting_x = 1060
+    setting_y = 485
+    gamepl_x = 705
+    gamepl_y = 455
     Other = (700, 590)
 
 
@@ -33,44 +35,39 @@ class Pokemones():
     catchHor = 0
     catchMag = 0
     catchKra = 0
-    Horsea = 0
-    Magikarp = 0
-    Krabby = 0
+    horsea = 0
+    magikarp = 0
+    krabby = 0
     HealTime = 0
     Button = ''
-    Pokeballs = 0
-    TillHeal = 0
+    pokeballs = 0
+    till_heal = 0
     Rod = ''
     Stop = 0
-    timeclock = 0
-    guiClosed = 0
+    time_clock = 0
+    gui_closed = 0
 
 
-class BotMain(Thread):
+class Bot_Main(Thread):
     def run(self):
-        if Pokemones.Pokeballs > 0:
-            while Pokemones.Pokeballs > 0:
+        if Pokemones.pokeballs > 0:
+            while Pokemones.pokeballs > 0:
                 if Pokemones.Stop == 1:
                     break
                 catching()
                 Pokemones.HealTime += 1
-                if Pokemones.HealTime >= Pokemones.TillHeal:
-                    ToHeal()
+                if Pokemones.HealTime >= Pokemones.till_heal:
+                    to_heal()
                     Pokemones.HealTime = 0
 
 
-class BotInfoBar(Thread):
+class Bot_Info_Bar(Thread):
     def run(self):
-        #
-        # def __init__(self):
-        # Frame.__init__(self)
         frame = Tk()
         frame.title('Live info')
         frame.configure(bg="#87DEF2")
         frame.geometry("170x120")
         frame.wm_attributes("-topmost", 1)
-        # frame = Frame()
-        # frame.grid()
         frame.configure(bg="#87DEF2")
         font10 = font.Font(family="Yu Gothic", size=10, weight='bold')
         font9 = font.Font(family="Yu Gothic", size=9, weight='bold')
@@ -80,40 +77,40 @@ class BotInfoBar(Thread):
         # The format is padding all the
         pattern = '{0:02d}:{1:02d}:{2:02d}'
         # Create a timeText Label (a text box)
-        Info = Label(frame, text="Run time:", font=font10, bg="#87DEF2")
-        Info.grid(row=0, column=0)
-        timeText = Label(frame, text="00:00:00", font=font10, bg="#87DEF2")
-        timeText.grid(row=0, column=1)
-        cList = Label(frame, text="Caught list", font=font10, bg="#87DEF2")
-        cList.grid(row=1, column=0)
-        Horsea = Label(frame, text="Horsea:", font=font9, bg="#87DEF2")
-        Horsea.grid(row=2, column=0, sticky=E + N)
-        CaughtH = Label(frame, text="00:00:00", font=font9, bg="#87DEF2")
-        CaughtH.grid(row=2, column=1, sticky=W)
-        Magikarp = Label(frame, text="Magikarp:", font=font9, bg="#87DEF2")
-        Magikarp.grid(row=3, column=0, sticky=E)
-        CaughtM = Label(frame, text="00", font=font9, bg="#87DEF2")
-        CaughtM.grid(row=3, column=1, sticky=W)
-        Krabby = Label(frame, text="Krabby:", font=font9, bg="#87DEF2")
-        Krabby.grid(row=4, column=0, sticky=E + N)
-        CaughtK = Label(frame, text="00", font=font9, bg="#87DEF2")
-        CaughtK.grid(row=4, column=1, sticky=W)
+        info = Label(frame, text="Run time:", font=font10, bg="#87DEF2")
+        info.grid(row=0, column=0)
+        time_text = Label(frame, text="00:00:00", font=font10, bg="#87DEF2")
+        time_text.grid(row=0, column=1)
+        catch_list = Label(frame, text="Caught list", font=font10, bg="#87DEF2")
+        catch_list.grid(row=1, column=0)
+        horsea: Label = Label(frame, text="Horsea:", font=font9, bg="#87DEF2")
+        horsea.grid(row=2, column=0, sticky=E + N)
+        caughtH = Label(frame, text="00:00:00", font=font9, bg="#87DEF2")
+        caughtH.grid(row=2, column=1, sticky=W)
+        magikarp = Label(frame, text="Magikarp:", font=font9, bg="#87DEF2")
+        magikarp.grid(row=3, column=0, sticky=E)
+        caughtM = Label(frame, text="00", font=font9, bg="#87DEF2")
+        caughtM.grid(row=3, column=1, sticky=W)
+        krabby = Label(frame, text="Krabby:", font=font9, bg="#87DEF2")
+        krabby.grid(row=4, column=0, sticky=E + N)
+        caughtK = Label(frame, text="00", font=font9, bg="#87DEF2")
+        caughtK.grid(row=4, column=1, sticky=W)
 
         def exist():
             Pokemones.Stop = 1
-            saveHistory()
+            save_history()
             frame.destroy()
 
-        quitButton = Button(frame, text='Quit', command=exist, font=font10, bg="#87DEF2")
-        quitButton.grid(row=3, column=3, sticky=W)
+        quit_button = Button(frame, text='Quit', command=exist, font=font10, bg="#87DEF2")
+        quit_button.grid(row=3, column=3, sticky=W)
 
-        def updade_CaughtList():
-            CaughtH.configure(text=Pokemones.Horsea)
-            CaughtM.configure(text=Pokemones.Magikarp)
-            CaughtK.configure(text=Pokemones.Krabby)
-            frame.after(100, updade_CaughtList)
+        def update_caught_list():
+            caughtH.configure(text=Pokemones.horsea)
+            caughtM.configure(text=Pokemones.magikarp)
+            caughtK.configure(text=Pokemones.krabby)
+            frame.after(100, update_caught_list)
 
-        def update_timeText():
+        def update_time_text():
             # Bot run Timer
             # Every time this function is called,
             # Increment 1 centisecond (1/100 of a second)
@@ -127,18 +124,21 @@ class BotInfoBar(Thread):
                 timer[0] += 1
                 timer[1] = 0
             # Timer string
-            timeString = pattern.format(timer[0], timer[1], timer[2])
+            time_string = pattern.format(timer[0], timer[1], timer[2])
             # Update the timeText Label box with the current time
-            timeText.configure(text=timeString)
-            # Call the update_timeText() function after 1 centisecond
-            frame.after(10, update_timeText)
+            time_text.configure(text=time_string)
+            # Call the update_time_text() function after 1 centisecond
+            frame.after(10, update_time_text)
 
-        update_timeText()
-        updade_CaughtList()
+        update_time_text()
+        update_caught_list()
         frame.mainloop()
 
+    def mainloop(self):
+        pass
 
-class botInterface(Frame):
+
+class Bot_Interface(Frame):
     def __init__(self):
         Frame.__init__(self)
         frame = Frame()
@@ -195,32 +195,32 @@ class botInterface(Frame):
         self.labFor.grid(row=7, column=2, sticky=N + W)
 
         # Buttons
-        def History(event):
-            filepath = 'History.txt'
-            os.startfile(filepath)
+        def history(event):
+            filename = 'history.txt'
+            os.startfile(filename)
 
-        self.Hist = Button(frame, text="History", font=font11)
-        self.Hist.bind("<ButtonRelease-1>", History)
+        self.Hist = Button(frame, text="history", font=font11)
+        self.Hist.bind("<ButtonRelease-1>", history)
         self.Hist.grid(row=11, column=0, sticky=S)
 
-        def clickSetup(event):
-            openesc()
+        def click_setup(event):
+            open_esc()
             setup()
 
         self.settupButton = Button(frame, text="SETUP", font=font11)
-        self.settupButton.bind("<ButtonRelease-1>", clickSetup, )
+        self.settupButton.bind("<ButtonRelease-1>", click_setup, )
         self.settupButton.grid(row=8, column=2)
 
-        def clickStart(event):
+        def click_start(event):
             try:
-                Pokemones.Pokeballs = int(self.pokeb.get())
+                Pokemones.pokeballs = int(self.pokeb.get())
                 try:
-                    Pokemones.TillHeal = int(self.heal.get())
+                    Pokemones.till_heal = int(self.heal.get())
                     Pokemones.Rod = self.rod.get()
                     Pokemones.catchHor = self.Horsea.get()
                     Pokemones.catchMag = self.Magikarp.get()
                     Pokemones.catchKra = self.Krabby.get()
-                    Pokemones.guiClosed = 1
+                    Pokemones.gui_closed = 1
                     self.master.destroy()
                 except ValueError:
                     messagebox.showerror("Error", "With 'Number of battles until healing' please write numbers only")
@@ -228,34 +228,34 @@ class botInterface(Frame):
                 messagebox.showerror("Error", "With 'Amount of pokebolls' please write numbers only")
 
         self.StartButton = Button(frame, text=" Start ", font=font11)
-        self.StartButton.bind("<ButtonRelease-1>", clickStart)
+        self.StartButton.bind("<ButtonRelease-1>", click_start)
         self.StartButton.grid(row=10, column=0, sticky=N)
 
         # Load
-        def clickLoad(event):
-            loadsetting()
+        def click_load(event):
+            load_setting()
             messagebox.showinfo("Load", "Loaded successfully")
-            Pokemones.guiClosed = 1
+            Pokemones.gui_closed = 1
             self.master.destroy()
 
         self.settupButton = Button(frame, text="Load last time used setting", font=font11)
-        self.settupButton.bind("<ButtonRelease-1>", clickLoad)
+        self.settupButton.bind("<ButtonRelease-1>", click_load)
         self.settupButton.grid(row=11, column=2, sticky=S)
 
 
-def Botinfo():
-    BotInfoBar().mainloop()
+def run_bot_info():
+    Bot_Info_Bar().mainloop()
 
 
-def Gui():
-    botInterface().mainloop()
+def run_gui():
+    Bot_Interface().mainloop()
 
 
-def keyboardCodes(button):
+def keyboard_codes(button):
     button = button.upper()
     if button == 'ESC':
         return 0x01
-    if button == 'W':
+    elif button == 'W':
         return 0x11
     elif button == 'E':
         return 0x12
@@ -332,58 +332,48 @@ def keyboardCodes(button):
     elif button == 'F12':
         return 0x58
     else:
-        messagebox.showerror("Error", "One of selected buttons is invalid")
+        messagebox.showerror("Error", "One of the selected buttons is invalid")
         return False
 
 
 # SendButton
-def Send(button):
-    button_code = keyboardCodes(button)
+def send_keyboard_input(button):
+    button_code = keyboard_codes(button)
     if button_code is not False:
-        button_hold_time = random.randint(198, 835) / 1000
-        PressKey(button_code)
+        button_hold_time = random.randint(198, 235) / 1000
+        press_key(button_code)
         time.sleep(button_hold_time)
-        ReleaseKey(button_code)
+        release_key(button_code)
     else:
         Pokemones.Stop = 1
 
 
-
 # Login to game
-def logintogame():
-    pyautogui.click(Cordinates.FullScreen)
+def login_into_the_game():
+    pyautogui.click(Coordinates.fullscreen)
 
     wait = random.randint(898, 1335) / 1000
     print(wait)
     time.sleep(wait)
-    wait = random.randint(898, 1335) / 1000
-    print(wait)
-    time.sleep(wait)
-    Send('Enter')
-    wait = random.randint(898, 1335) / 1000
-    print(wait)
-    time.sleep(wait)
-    Send('Enter')
-    wait = random.randint(898, 1335) / 1000
-    print(wait)
-    time.sleep(wait)
-    Send('Enter')
-    wait = random.randint(898, 1335) / 1000
-    print(wait)
-    time.sleep(wait)
+    for x in range(4):
+        time.sleep(wait)
+        send_keyboard_input('Enter')
+        wait = random.randint(898, 1335) / 1000
+        print(wait)
+        time.sleep(wait)
 
 
 # Open Setting
-def openesc():
-    pyautogui.click(Cordinates.FullScreen)
-    pyautogui.click(Cordinates.FullScreen)
-    Send('esc')
-    Send('s')
-    Send('enter')
+def open_esc():
+    pyautogui.click(Coordinates.fullscreen)
+    pyautogui.click(Coordinates.fullscreen)
+    send_keyboard_input('esc')
+    send_keyboard_input('s')
+    send_keyboard_input('enter')
 
 
 # Setup functions
-def searchcor(p1):
+def search_coor(p1):
     box = (p1.X, p1.Y, p1.X + 40, p1.Y + 25)
     image = ImageGrab.grab(box)
     grayImage = ImageOps.grayscale(image)
@@ -392,105 +382,105 @@ def searchcor(p1):
 
 
 def gamep():
-    pyautogui.click(Cordinates.GameplX, Cordinates.GameplY)
+    pyautogui.click(Coordinates.gamepl_x, Coordinates.gamepl_y)
     time.sleep(0.1)
-    pyautogui.click(Cordinates.GameplX + 490, Cordinates.GameplY - 95)
-    pyautogui.click(Cordinates.GameplX + 490, Cordinates.GameplY - 95)
-    pyautogui.click(Cordinates.GameplX + 490, Cordinates.GameplY - 95)
+    pyautogui.click(Coordinates.gamepl_x + 490, Coordinates.gamepl_y - 95)
+    pyautogui.click(Coordinates.gamepl_x + 490, Coordinates.gamepl_y - 95)
+    pyautogui.click(Coordinates.gamepl_x + 490, Coordinates.gamepl_y - 95)
 
 
 def oth():
-    pyautogui.click(Cordinates.Other)
+    pyautogui.click(Coordinates.Other)
     time.sleep(0.1)
 
 
 # Setup check
 def setup():
     # Pakeicia anti aliesing i 0
-    p1 = Cordinates(1060, 485)
+    p1 = Coordinates(1060, 485)
     while True:
         time.sleep(0.01)
-        if searchcor(p1) < 13000:
-            pyautogui.click(Cordinates.SettingX - 85, Cordinates.SettingY + 10)
+        if search_coor(p1) < 13000:
+            pyautogui.click(Coordinates.setting_x - 85, Coordinates.setting_y + 10)
         else:
             break
     # Isjungia overworld in battle
-    p1 = Cordinates(1060, 555)
-    if searchcor(p1) > 2700:
-        pyautogui.click(Cordinates.SettingX, Cordinates.SettingY + 70)
+    p1 = Coordinates(1060, 555)
+    if search_coor(p1) > 2700:
+        pyautogui.click(Coordinates.setting_x, Coordinates.setting_y + 70)
     # Isjungia Battle Background
-    p1 = Cordinates(1060, 590)
-    p1 = Cordinates(1060, 590)
-    if searchcor(p1) > 2600:
-        pyautogui.click(Cordinates.SettingX, Cordinates.SettingY + 105)
+    p1 = Coordinates(1060, 590)
+    p1 = Coordinates(1060, 590)
+    if search_coor(p1) > 2600:
+        pyautogui.click(Coordinates.setting_x, Coordinates.setting_y + 105)
     # Padaro battle window size: 100
-    pyautogui.click(Cordinates.SettingX, Cordinates.SettingY + 181)
+    pyautogui.click(Coordinates.setting_x, Coordinates.setting_y + 181)
     time.sleep(1)
     pyautogui.typewrite('900')
     # Isjungia UI Effects
-    p1 = Cordinates(1060, 690)
-    if searchcor(p1) > 2800:
-        pyautogui.click(Cordinates.SettingX, Cordinates.SettingY + 205)
+    p1 = Coordinates(1060, 690)
+    if search_coor(p1) > 2800:
+        pyautogui.click(Coordinates.setting_x, Coordinates.setting_y + 205)
     # Atidaro per Settings Gameplay ir padaro text speed i 4
     gamep()
     # Isjungia Chat bubbles
-    p1 = Cordinates(1065, 380)
-    print(searchcor(p1))
-    if searchcor(p1) > 2850:
-        pyautogui.click(Cordinates.SettingX, Cordinates.SettingY - 95)
+    p1 = Coordinates(1065, 380)
+    print(search_coor(p1))
+    if search_coor(p1) > 2850:
+        pyautogui.click(Coordinates.setting_x, Coordinates.setting_y - 95)
     # Ijungia Toggle running
-    p1 = Cordinates(1065, 425)
-    if searchcor(p1) < 2300:
-        pyautogui.click(Cordinates.SettingX, Cordinates.SettingY - 55)
+    p1 = Coordinates(1065, 425)
+    if search_coor(p1) < 2300:
+        pyautogui.click(Coordinates.setting_x, Coordinates.setting_y - 55)
     # Isjungia Own overworld name
-    p1 = Cordinates(1065, 465)
-    if searchcor(p1) > 2550:
-        pyautogui.click(Cordinates.SettingX, Cordinates.SettingY - 15)
+    p1 = Coordinates(1065, 465)
+    if search_coor(p1) > 2550:
+        pyautogui.click(Coordinates.setting_x, Coordinates.setting_y - 15)
     # Atidaro per setting Other
     oth()
     # Pirma eile
-    p1 = Cordinates(990, 385)
-    if searchcor(p1) < 2600:
+    p1 = Coordinates(990, 385)
+    if search_coor(p1) < 2600:
         pyautogui.click(p1.X, p1.Y)
-    p1 = Cordinates(990, 420)
-    if searchcor(p1) < 2800:
+    p1 = Coordinates(990, 420)
+    if search_coor(p1) < 2800:
         pyautogui.click(p1.X, p1.Y)
-    p1 = Cordinates(990, 460)
-    if searchcor(p1) < 2600:
+    p1 = Coordinates(990, 460)
+    if search_coor(p1) < 2600:
         pyautogui.click(p1.X, p1.Y)
-    p1 = Cordinates(990, 495)
-    if searchcor(p1) < 2700:
+    p1 = Coordinates(990, 495)
+    if search_coor(p1) < 2700:
         pyautogui.click(p1.X, p1.Y)
-    p1 = Cordinates(990, 535)
-    if searchcor(p1) < 2500:
+    p1 = Coordinates(990, 535)
+    if search_coor(p1) < 2500:
         pyautogui.click(p1.X, p1.Y)
     # Antra eile
-    p1 = Cordinates(1075, 385)
-    if searchcor(p1) < 2600:
+    p1 = Coordinates(1075, 385)
+    if search_coor(p1) < 2600:
         pyautogui.click(p1.X, p1.Y)
-    p1 = Cordinates(1075, 460)
-    if searchcor(p1) < 2600:
+    p1 = Coordinates(1075, 460)
+    if search_coor(p1) < 2600:
         pyautogui.click(p1.X, p1.Y)
-    p1 = Cordinates(1075, 495)
-    if searchcor(p1) < 2700:
+    p1 = Coordinates(1075, 495)
+    if search_coor(p1) < 2700:
         pyautogui.click(p1.X, p1.Y)
-    p1 = Cordinates(1075, 535)
-    if searchcor(p1) < 2500:
+    p1 = Coordinates(1075, 535)
+    if search_coor(p1) < 2500:
         pyautogui.click(p1.X, p1.Y)
     # Trecia eile
-    p1 = Cordinates(1160, 385)
-    if searchcor(p1) < 2600:
+    p1 = Coordinates(1160, 385)
+    if search_coor(p1) < 2600:
         pyautogui.click(p1.X, p1.Y)
-    p1 = Cordinates(1160, 420)
-    if searchcor(p1) < 2800:
+    p1 = Coordinates(1160, 420)
+    if search_coor(p1) < 2800:
         pyautogui.click(p1.X, p1.Y)
-    p1 = Cordinates(1160, 460)
-    if searchcor(p1) < 2600:
+    p1 = Coordinates(1160, 460)
+    if search_coor(p1) < 2600:
         pyautogui.click(p1.X, p1.Y)
-    p1 = Cordinates(1160, 535)
-    if searchcor(p1) < 2500:
+    p1 = Coordinates(1160, 535)
+    if search_coor(p1) < 2500:
         pyautogui.click(p1.X, p1.Y)
-    p1 = Cordinates(1233, 750)
+    p1 = Coordinates(1233, 750)
     pyautogui.click(p1.X, p1.Y)
     messagebox.showwarning("Worning", "If any setting were change please restart the game")
     messagebox.showwarning("Worning",
@@ -508,253 +498,257 @@ def checking(p1):
 
 def catching():
     err = 0
-    pyautogui.click(Cordinates.FullScreen)
-    pyautogui.click(Cordinates.FullScreen)
-    Send(Pokemones.Rod)
-    p1 = Cordinates(815, 395)
+    pyautogui.moveTo(Coordinates.fullscreen)
+    send_keyboard_input(Pokemones.Rod)
+    p1 = Coordinates(815, 395)
     print('Fishing')
     while True:
         if Pokemones.Stop == 1:
             break
-        if searchcor(p1) < 1010:
+        if search_coor(p1) < 1010:
             time.sleep(1)
-            pokecheck()
+            poke_check()
             break
         time.sleep(0.05)
-        if searchcor(p1) > 10000:
-            Send('z')
-            Send('z')
+        if search_coor(p1) > 10000:
+            send_keyboard_input('z')
+            send_keyboard_input('z')
             err = 0
             time.sleep(0.1)
-            Send(Pokemones.Rod)
+            send_keyboard_input(Pokemones.Rod)
         else:
             err += 1
             if err == 30:
-                logintogame()
+                login_into_the_game()
                 catching()
                 break
-            Send('z')
-            Send(Pokemones.Rod)
+            send_keyboard_input('z')
+            send_keyboard_input(Pokemones.Rod)
 
 
 # Fighting
 def catch():
     err = 0
-    p1 = Cordinates(370, 685)
+    p1 = Coordinates(370, 685)
     print('Waiting to catch')
     while True:
         err += 1
         time.sleep(0.1)
         if err == 100:
-            logintogame()
+            login_into_the_game()
             catching()
             break
         if checking(p1) > 8000:
-            print('Catching')
-            Send('d')
-            Send('z')
-            Send('d')
-            Send('d')
-            Send('z')
-            Pokemones.Pokeballs -= 1
-            p1 = Cordinates(100, 280)
+            throwing_pokeball()
+            Pokemones.pokeballs -= 1
+            p1 = Coordinates(100, 280)
             print('Waiting For Battle To End')
             err = 0
             while True:
                 err += 1
                 if err >= 200:
-                    logintogame()
+                    login_into_the_game()
                     catching()
                     break
-                time.sleep(0.1)
+                time.sleep(0.2)
                 if checking(p1) > 1010:
-                    closepop()
-                    closepop()
+                    close_popups()
+                    print('Close popup')
                     break
             break
 
 
+def throwing_pokeball():
+    print('Throwing pokeball')
+    send_keyboard_input('d')
+    send_keyboard_input('z')
+    send_keyboard_input('d')
+    send_keyboard_input('d')
+    send_keyboard_input('z')
+
+
 def attack():
     print('Attacking')
-    Send('a')
-    Send('z')
-    Send('z')
+    send_keyboard_input('a')
+    send_keyboard_input('z')
+    send_keyboard_input('z')
     catch()
 
 
 def kill():
     err = 0
-    Send('a')
-    Send('z')
-    Send('d')
-    Send('z')
-    p1 = Cordinates(100, 280)
+    send_keyboard_input('a')
+    send_keyboard_input('z')
+    send_keyboard_input('d')
+    send_keyboard_input('z')
+    p1 = Coordinates(100, 280)
     while True:
         time.sleep(0.1)
         err += 1
         if err >= 200:
-            logintogame()
+            login_into_the_game()
             catching()
             break
-        if searchcor(p1) > 1010:
+        if search_coor(p1) > 1010:
             break
 
 
-def pokecheck():
-    p1 = Cordinates(335, 150)
+def poke_check():
+    p1 = Coordinates(335, 150)
     err = 0
     print('Looking For Pokemon')
-    Send('z')
+    send_keyboard_input('z')
     while True:
         time.sleep(0.1)
-        if checking(p1) < 10000 and checking(p1) > 5000:
+        if 10000 > checking(p1) > 5000:
             time.sleep(0.1)
-            if checking(p1) < 10000 and checking(p1) > 5000:
+            if 10000 > checking(p1) > 5000:
                 err = 0
-                p1 = Cordinates(370, 685)
+                p1 = Coordinates(370, 685)
                 print('Waiting to attack Horsea')
                 while True:
                     err += 1
                     time.sleep(0.1)
                     if checking(p1) > 8000:
                         if Pokemones.catchHor == 0:
-                            Pokemones.Horsea -= 1
+                            Pokemones.horsea -= 1
                             kill()
                             break
                         else:
-                            Pokemones.Horsea += 1
+                            Pokemones.horsea += 1
                             attack()
                             break
                     if err == 60:
-                        logintogame()
+                        login_into_the_game()
                         catching()
                         break
                 break
         elif checking(p1) > 12000:
             err = 0
-            p1 = Cordinates(370, 685)
+            p1 = Coordinates(370, 685)
             print('Waiting to attack Magikarp')
             while True:
                 time.sleep(0.1)
                 if checking(p1) > 8000:
                     if Pokemones.catchMag == 0:
-                        Pokemones.Magikarp -= 1
+                        Pokemones.magikarp -= 1
                         kill()
                         break
                     else:
-                        Pokemones.Magikarp += 1
+                        Pokemones.magikarp += 1
                         attack()
                         break
                 if err == 60:
-                    logintogame()
+                    login_into_the_game()
                     catching()
                     break
             break
-        elif checking(p1) > 10000 and checking(p1) < 12000:
+        elif 10000 < checking(p1) < 12000:
             err = 0
-            p1 = Cordinates(370, 685)
+            p1 = Coordinates(370, 685)
             print('Waiting to attack Krabby')
             while True:
                 time.sleep(0.1)
                 if checking(p1) > 8000:
                     if Pokemones.catchKra == 0:
-                        Pokemones.Krabby -= 1
+                        Pokemones.krabby -= 1
                         kill()
                         break
                     else:
-                        Pokemones.Krabby += 1
+                        Pokemones.krabby += 1
                         attack()
                         break
                 if err == 60:
-                    logintogame()
+                    login_into_the_game()
                     catching()
                     break
             break
         else:
             err += 1
             if err == 40:
-                logintogame()
+                login_into_the_game()
                 catching()
                 break
 
 
 # Close popups
-def closepop():
-    p1 = Cordinates(965, 470)
+def close_popups():
+    p1 = Coordinates(965, 470)
     pyautogui.click(p1.X, p1.Y)
     time.sleep(0.01)
-    Send('esc')
-    p1 = Cordinates(935, 610)
-    # if checking(p1) > 8000:
-    #     Send('enter')
+    send_keyboard_input('esc')
+    p1 = Coordinates(935, 610)
+    if checking(p1) > 8000:
+        send_keyboard_input('enter')
 
 
 # GoHealing; 0x11 = w button
-def ToHeal():
+def to_heal():
     print("Going to pokecenter")
-    p1 = Cordinates(945, 340)
-    print(searchcor(p1))
-    button = keyboardCodes("w")
-    while searchcor(p1) < 2650:
-        PressKey(button)
-    ReleaseKey(button)
-    Heal()
+    p1 = Coordinates(945, 340)
+    print(search_coor(p1))
+    button = keyboard_codes("w")
+    while search_coor(p1) < 2650:
+        press_key(button)
+    release_key(button)
+    heal()
 
 
 # Healing
-def Heal():
+def heal():
     print("Going to nurse")
-    ErrCheck = 0
-    p1 = Cordinates(558, 140)
-    Send('z')
+    err_check = 0
+    p1 = Coordinates(558, 140)
+    send_keyboard_input('z')
     time.sleep(0.2)
-    Send('z')
-    print(searchcor(p1))
+    send_keyboard_input('z')
+    print(search_coor(p1))
     while True:
         time.sleep(0.15)
-        if searchcor(p1) > 12000:
-            Send('z')
-            ErrCheck = 0
+        if search_coor(p1) > 12000:
+            send_keyboard_input('z')
+            err_check = 0
         else:
-            ErrCheck += 1
-            if ErrCheck >= 2:
+            err_check += 1
+            if err_check >= 2:
                 break
     time.sleep(1)
-    FromHeal()
+    from_heal()
 
 
 # BackHealing 0x1F = s button
-def FromHeal():
-    print ("Going back to fishing")
-    p1 = Cordinates(945, 550)
+def from_heal():
+    print("Going back to fishing")
+    p1 = Coordinates(945, 550)
     while True:
-        PressKey(0x1F)
-        if searchcor(p1) < 1020:
-            ReleaseKey(0x1F)
+        press_key(0x1F)
+        if search_coor(p1) < 1020:
+            release_key(0x1F)
             time.sleep(1)
             break
-    PressKey(0x1F)
-    time.sleep(1)
-    ReleaseKey(0x1F)
+    button_hold_time = random.randint(698, 835) / 1000
+    press_key(0x1F)
+    time.sleep(button_hold_time)
+    release_key(0x1F)
 
 
 # Preset
-def saveHistory():
+def save_history():
     save_file = open("History.txt", "a+")
     save_file.write("\n\n")
     save_file.write("Horsea: ")
-    save_file.write(str(Pokemones.Horsea))
+    save_file.write(str(Pokemones.horsea))
     save_file.write(" Magikarp: ")
-    save_file.write(str(Pokemones.Magikarp))
+    save_file.write(str(Pokemones.magikarp))
     save_file.write(" Krabby: ")
-    save_file.write(str(Pokemones.Krabby))
+    save_file.write(str(Pokemones.krabby))
 
 
-def savesetting():
+def save_setting():
     save_file = open("save.txt", "w")
-    save_file.write(str(Pokemones.Pokeballs))
+    save_file.write(str(Pokemones.pokeballs))
     save_file.write(" ")
-    save_file.write(str(Pokemones.TillHeal))
+    save_file.write(str(Pokemones.till_heal))
     save_file.write(" ")
     save_file.write(str(Pokemones.Rod))
     save_file.write(" ")
@@ -765,13 +759,14 @@ def savesetting():
     save_file.write(str(Pokemones.catchKra))
     save_file.close()
 
-def loadsetting():
+
+def load_setting():
     with open("save.txt", "r") as load:
-        Pokemones.Pokeballs, Pokemones.TillHeal, Pokemones.Rod, Pokemones.catchHor, Pokemones.catchMag, Pokemones.catchKra = [
+        Pokemones.pokeballs, Pokemones.till_heal, Pokemones.Rod, Pokemones.catchHor, Pokemones.catchMag, Pokemones.catchKra = [
             str(x) for x in next(load).split()]
     load.close()
-    Pokemones.Pokeballs = int(Pokemones.Pokeballs)
-    Pokemones.TillHeal = int(Pokemones.TillHeal)
+    Pokemones.pokeballs = int(Pokemones.pokeballs)
+    Pokemones.till_heal = int(Pokemones.till_heal)
     Pokemones.catchHor = int(Pokemones.catchHor)
     Pokemones.catchMag = int(Pokemones.catchMag)
     Pokemones.catchKra = int(Pokemones.catchKra)
@@ -815,34 +810,32 @@ class Input(ctypes.Structure):
                 ("ii", Input_I)]
 
 
-# Actuals Functions
-
-def PressKey(hexKeyCode):
+# Actual Functions
+def press_key(hex_key_code):
     extra = ctypes.c_ulong(0)
     ii_ = Input_I()
-    ii_.ki = KeyBdInput(0, hexKeyCode, 0x0008, 0, ctypes.pointer(extra))
+    ii_.ki = KeyBdInput(0, hex_key_code, 0x0008, 0, ctypes.pointer(extra))
     x = Input(ctypes.c_ulong(1), ii_)
     ctypes.windll.user32.SendInput(1, ctypes.pointer(x), ctypes.sizeof(x))
 
 
-def ReleaseKey(hexKeyCode):
+def release_key(hex_key_code):
     extra = ctypes.c_ulong(0)
     ii_ = Input_I()
-    ii_.ki = KeyBdInput(0, hexKeyCode, 0x0008 | 0x0002, 0, ctypes.pointer(extra))
+    ii_.ki = KeyBdInput(0, hex_key_code, 0x0008 | 0x0002, 0, ctypes.pointer(extra))
     x = Input(ctypes.c_ulong(1), ii_)
     ctypes.windll.user32.SendInput(1, ctypes.pointer(x), ctypes.sizeof(x))
 
 
 def main():
-    Gui()
-    Pokemones.timeclock = time.process_time()
-    savesetting()
-    Main = BotMain()
-    Info = BotInfoBar()
-    Main.start()
-    if (Pokemones.guiClosed == 1):
-        Info.start()
+    run_gui()
+    Pokemones.time_clock = time.process_time()
+    save_setting()
+    setup_gui = Bot_Main()
+    bot_progress_gui = Bot_Info_Bar()
+    setup_gui.start()
+    if Pokemones.gui_closed == 1:
+        bot_progress_gui.start()
 
 
 main()
-
